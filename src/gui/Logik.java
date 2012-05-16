@@ -7,48 +7,49 @@ package gui;
  * @author bene
  *
  */
+
 public class Logik {
-	protected static void incrementFigY() {
+	protected void incrementFigY() {
 		
 	}
 	
-	protected static void incrementFigX() {
+	protected void incrementFigX() {
 		
 	}
 	
-	protected static void decrementFigY() {
+	protected void decrementFigY() {
 		
 	}
 	
-	protected static void decrementFigX() {
+	protected void decrementFigX() {
 		
 	}
 	
-	protected static void setBomb() {
+	protected void setBomb() {
 		
 	}
 	
-	protected static void enterPressed() {
+	protected void enterPressed() {
 		
 	}
 	
-	protected static void toMenu() {
+	protected void toMenu() {
 		
 	}
 	
-	protected static void menuLeft() {
+	protected void menuLeft() {
 		
 	}
 	
-	protected static void menuRight() {
+	protected void menuRight() {
 		
 	}
 	
-	protected static void menuUp() {
+	protected void menuUp() {
 		
 	}
 	
-	protected static void menuDown() {
+	protected void menuDown() {
 		
 	}
 }

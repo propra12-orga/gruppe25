@@ -10,30 +10,36 @@ import java.awt.event.KeyListener;
  * auslesen und diese an die Logik des Spiels übergeben. Somit findet
  * die Steuerung der Spielfigur, sowie die Steuerung im Menü statt. 
  *
+ *
  * Die Klasse benötigt:
  * Aus der Klasse Logik, folgende Methoden:
  * 
- * static incrementFigY()
- * static incrementFigX()
- * static decrementFigy()
- * static decrementFigX()
+ * incrementFigY()
+ * incrementFigX()
+ * decrementFigy()
+ * decrementFigX()
  * 
- * static setBomb()
- * static toMenu()
- * static enter
+ * setBomb()
+ * toMenu()
+ * enter
  * 
- * static menuUp()
- * static menuDown()
- * static menuLeft()
- * static menuRight()
+ * menuUp()
+ * menuDown()
+ * menuLeft()
+ * menuRight()
  * 
  * Und ansonsten natürlich die beiden oben importierten Packages. 
  */
 public class Steuerung implements KeyListener{
 	
+	private Logik logic;
+	
+	public Steuerung(Logik logicInit){
+		this.logic = logicInit;
+	}
+	
 	public void keyPressed(KeyEvent e) {
 		char c = e.getKeyChar(); 	  //Liest den Key aus und gibt einen Char zurück
-		int id = e.getKeyCode(); 	  //Gibt den zu einer Tastenkombination zugehörigen int-Wert aus
 		
 		/* Ich verwende hier switch-case, statt if-else Verzweigungen, 
 		 * damit die ganze Syntax einfacher zu lesen wird. 
@@ -41,19 +47,19 @@ public class Steuerung implements KeyListener{
 		 * für die Ingame Steuerung angedacht. */
 		switch(c) {
 		case 'w':		//w: y++
-			Logik.incrementFigY();
+			logic.incrementFigY();
 			break;
 		
 		case 's':		//s: y--
-			Logik.decrementFigY();
+			logic.decrementFigY();
 			break;
 			
 		case 'a':		//a: x--
-			Logik.decrementFigX();
+			logic.decrementFigX();
 			break;
 			
 		case 'd':		//d: x++
-			Logik.incrementFigX();
+			logic.incrementFigX();
 			break;
 		}
 	}
@@ -64,28 +70,28 @@ public class Steuerung implements KeyListener{
 		
 		switch(id) {
 		case (KeyEvent.VK_SPACE):
-			Logik.setBomb(); 	//Bei Leertaste wird eine Bombe gesetzt
+			logic.setBomb(); 	//Bei Leertaste wird eine Bombe gesetzt
 			break;
 		case (KeyEvent.VK_ESCAPE):
-			Logik.toMenu();		//Esc-Taste führt zurück zum Menu
+			logic.toMenu();		//Esc-Taste führt zurück zum Menu
 			break;
 		case (KeyEvent.VK_ENTER):	//Falls wir noch die Enter-Taste implementieren wollen
-			Logik.enterPressed();
+			logic.enterPressed();
 			break;
 		}
 		
 		switch(c){	//Dies habe ich hier für die Menüsteuerung hingepackt (auch WASD)
 		case 'w':
-			Logik.menuUp();
+			logic.menuUp();
 			break;
 		case 's':
-			Logik.menuDown();
+			logic.menuDown();
 			break;
 		case 'a':
-			Logik.menuLeft();
+			logic.menuLeft();
 			break;
 		case 'd':
-			Logik.menuRight();
+			logic.menuRight();
 			break;
 		}
 	}
