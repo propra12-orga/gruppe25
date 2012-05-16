@@ -40,61 +40,45 @@ public class Steuerung implements KeyListener{
 	
 	public void keyPressed(KeyEvent e) {
 		char c = e.getKeyChar(); 	  //Liest den Key aus und gibt einen Char zurück
+		int id = e.getKeyCode();
 		
 		/* Ich verwende hier switch-case, statt if-else Verzweigungen, 
 		 * damit die ganze Syntax einfacher zu lesen wird. 
-		 * Dieser Teil der Steuerung, nur für gedrückte Keys habe ich
-		 * für die Ingame Steuerung angedacht. */
+		 * Hier muss die Logik entscheiden ob ein Menü offen ist und
+		 * ob also die Figur bewegt oder durchs Menü gesteuert wird.  */
 		switch(c) {
 		case 'w':		//w: y++
-			logic.incrementFigY();
+			logic.up();
 			break;
 		
 		case 's':		//s: y--
-			logic.decrementFigY();
+			logic.down();
 			break;
 			
 		case 'a':		//a: x--
-			logic.decrementFigX();
+			logic.left();
 			break;
 			
 		case 'd':		//d: x++
-			logic.incrementFigX();
+			logic.right();
 			break;
 		}
-	}
-	
-	public void keyTyped(KeyEvent e) {
-		char c = e.getKeyChar();
-		int id = e.getKeyCode();
 		
 		switch(id) {
 		case (KeyEvent.VK_SPACE):
-			logic.setBomb(); 	//Bei Leertaste wird eine Bombe gesetzt
+			logic.setBomb(); 		//Bei Leertaste wird eine Bombe gesetzt
 			break;
 		case (KeyEvent.VK_ESCAPE):
-			logic.toMenu();		//Esc-Taste führt zurück zum Menu
+			logic.toMenu();			//Esc-Taste führt zurück zum Menu
 			break;
 		case (KeyEvent.VK_ENTER):	//Falls wir noch die Enter-Taste implementieren wollen
 			logic.enterPressed();
 			break;
 		}
-		
-		switch(c){	//Dies habe ich hier für die Menüsteuerung hingepackt (auch WASD)
-		case 'w':
-			logic.menuUp();
-			break;
-		case 's':
-			logic.menuDown();
-			break;
-		case 'a':
-			logic.menuLeft();
-			break;
-		case 'd':
-			logic.menuRight();
-			break;
-		}
 	}
 	
-	public void keyReleased(KeyEvent e) {} //Die Methode ist in der Superklasse abstract und muss daher überschrieben werden. 
+	/* Die folgenden Methoden sind in der Superklasse abstract und 
+	 * müssen daher überschrieben werden. */
+	public void keyTyped(KeyEvent e) {}	
+	public void keyReleased(KeyEvent e) {} 
 }

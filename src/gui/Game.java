@@ -11,11 +11,13 @@ public class Game {
 		new Game();
 	}
 	public Game(){
-		l = new Logik();
-		m = new Menu();
-		s = new Steuerung(l);
 		g = new Grafik();
+		m = new Menu();
+		l = new Logik(g,m);
+
+		s = new Steuerung(l);
 		
-		g.addActionListener();
+		g.addActionListener(s);
+		m.addActionListener(s);
 	}
 }
