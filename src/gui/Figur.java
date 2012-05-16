@@ -7,7 +7,7 @@ package gui;
  * @author bene
  *
  */
-public class Figur {
+public class Figur extends Grafik{
 	private int y;		//x,y Position der Figur
 	private int x;
 	
@@ -16,7 +16,7 @@ public class Figur {
 		this.x = xInit;
 	}
 	/* Die folgenden vier Methoden sollen die Position der Figur
-	 * durch Funktionenaufruf von Grafik. */
+	 * durch Funktionenaufruf von Grafik ändern. */
 	protected void incY(int n) {
 		y+=n;
 	}
