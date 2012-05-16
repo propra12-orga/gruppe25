@@ -1,4 +1,4 @@
-package de.hhu.propra12.gruppe25.bomberman.gui;
+package gui;
 
 public class Game {
 	public void main(){

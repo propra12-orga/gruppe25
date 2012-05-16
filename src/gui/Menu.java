@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.hhu.propra12.gruppe25.bomberman.gui;
+package gui;
 
 /**
  * @author bene
@@ -10,3 +10,4 @@ package de.hhu.propra12.gruppe25.bomberman.gui;
 public class Menu {
 
 }
+//Ich pack hier mal nen Kommentar hinter...
