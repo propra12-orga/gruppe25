@@ -3,7 +3,7 @@
  */
 package gui;
 
-/**
+/** /Hier kommt ein Kommentar hin
  * @author bene
  *
  */
