@@ -10,6 +10,7 @@ package gui;
 public class Menu {
 	
 	private boolean status;
+	private Steuerung s;
 	
 	protected boolean isStatus() {
 		return status;
@@ -17,5 +18,9 @@ public class Menu {
 
 	protected void setStatus(boolean status) {
 		this.status = status;
+	}
+	
+	protected void setSteuerung(Steuerung sInit) {
+		this.s = sInit;
 	}
 }

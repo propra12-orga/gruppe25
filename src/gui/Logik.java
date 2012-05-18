@@ -24,7 +24,7 @@ public class Logik {
 	 * sich die Figur bewegt. */
 	protected void up() {
 		if(m.isStatus()) ;//selektor rauf
-		else g.incFigY(figStep);
+		else g.decFigY(figStep); //y-Achse zeigt nach unten
 	}
 	
 	protected void right() {
@@ -34,7 +34,7 @@ public class Logik {
 	
 	protected void down() {
 		if(m.isStatus()); //selektor runter
-		else g.decFigY(figStep);
+		else g.incFigY(figStep);
 	}
 	
 	protected void left() {
