@@ -20,6 +20,9 @@ public class Game {
 		s = new Steuerung(l);	//Die Steuerung hat nun die Möglichkeit Eingaben weiter zu leiten
 		
 		g.setSteuerung(s);
+		g.setLogik(l);
+		
+		m.setStatus(true);
 		m.setSteuerung(s);
 		/* Sowohl sie Grafik als auch das Menü müssen auf Eingaben reagieren...
 		 * bin mir aber noch nicht sicher ob wir die brauchen (Aiko)*/

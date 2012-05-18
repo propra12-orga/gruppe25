@@ -9,6 +9,7 @@ package gui;
  */
 public class Grafik {
 	
+	private Logik l;
 	private Steuerung s;
 	private int x0 = 0;
 	private int y0 = 0;
@@ -29,6 +30,10 @@ public class Grafik {
 	
 	protected void decFigY(int i) {
 		fig.decY(i);
+	}
+	
+	protected void setLogik(Logik lInit) {
+		this.l = lInit;
 	}
 	
 	protected void setSteuerung(Steuerung sInit) {
