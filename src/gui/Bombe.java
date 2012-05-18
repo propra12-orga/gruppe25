@@ -70,8 +70,8 @@ public class Bombe extends Grafik{
 	/* Die draw Methode fragt erst ab, ob die Bombe überhaupt
 	 * angezeigt werden darf (über Boolean show)*/
 	protected void draw(int x1, int y1) {
-		x = x1;
-		y = y1;
+		this.x = x1;
+		this.y = y1;
 		
 		if(show) {
 			
