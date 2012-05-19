@@ -4,13 +4,14 @@
 package gui;
 
 /** /Hier kommt ein Kommentar hin
- * @author bene
+ * @author Aiko
  *
  */
 public class Grafik {
 	
 	private Logik l;
-	private Steuerung s;
+	private Eingabe e;
+	private Menu m;
 	private int x0 = 0;
 	private int y0 = 0;
 	private Figur fig = new Figur(x0, y0); //erstmal um eine Figur zu haben, kann ersetzt werden
@@ -32,11 +33,24 @@ public class Grafik {
 		fig.decY(i);
 	}
 	
+	/* Setzt den Anzeigestatus des Menüs*/
+	protected void setMenuStatus(boolean tf) {
+		m.setStatus(tf);
+	}
+	
 	protected void setLogik(Logik lInit) {
 		this.l = lInit;
 	}
 	
-	protected void setSteuerung(Steuerung sInit) {
-		this.s = sInit;
+	protected void setEingabe(Eingabe eInit) {
+		this.e = eInit;
+	}
+	
+	protected void init() {
+		m = new Menu(); 
+	}
+	
+	protected void start() {
+		
 	}
 }

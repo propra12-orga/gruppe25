@@ -7,6 +7,6 @@ package gui;
  * @author bene
  *
  */
-public class Stein {
+public class Stein extends Grafik{
 
 }

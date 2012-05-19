@@ -4,29 +4,25 @@ public class Game {
 	
 	/* Objektvariablen*/
 	private Logik l;
-	private Menu m;
-	private Steuerung s;
+	private Eingabe e;
 	private Grafik g;
 	
 	public void main(){
 		new Game();
 	}
 	
-	/* Hier passiert die Voodoo Magie*/
+	/* Logik und Grafik müssen aufeinander zugreifen können, die Eingabe muss Befehle an die 
+	 * Logik geben können und die Grafik muss ihren Frames die Eingabe als Listener übergeben 
+	 * können. */
 	public Game(){
 		g = new Grafik();
-		m = new Menu();
-		l = new Logik(g,m);		//Logik muss Grafik und Menu überwachen und anweisen
-		s = new Steuerung(l);	//Die Steuerung hat nun die Möglichkeit Eingaben weiter zu leiten
+		l = new Logik(g);		
+		e = new Eingabe(l);	
 		
-		g.setSteuerung(s);
+		l.setEingabe(e);
+		g.setEingabe(e);
 		g.setLogik(l);
 		
-		m.setStatus(true);
-		m.setSteuerung(s);
-		/* Sowohl sie Grafik als auch das Menü müssen auf Eingaben reagieren...
-		 * bin mir aber noch nicht sicher ob wir die brauchen (Aiko)*/
-		//g.addActionListener(s);	
-		//m.addActionListener(s);
+		l.start();
 	}
 }

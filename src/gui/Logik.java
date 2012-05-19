@@ -10,36 +10,36 @@ package gui;
 
 public class Logik {
 	private Grafik g;
-	private Menu m;
-	private int figStep = 1;
+	private int figStep = 1; //Schrittweite der Figur
+	private Eingabe e;
+	private boolean menuStatus;
+	private boolean gameStatus;
 	
-	public Logik(Grafik gInit, Menu mInit) {
+	public Logik(Grafik gInit) {
 		this.g = gInit;
-		this.m = mInit;
 	}
 	
-	/* Die folgenden vier Methoden rufen die Figur in der Grafik auf und 
-	 * Inkrementieren oder Dekrementieren dessen x und y Wert. Hier wird 
-	 * auch durch den übergebenen Wert festgelegt, um wieviel (vllt Pixel)
-	 * sich die Figur bewegt. */
+	protected void setEingabe(Eingabe eInit) {
+		this.e = eInit;
+	}
+	/* Die folgenden vier Methoden rufen die Grafik auf und 
+	 * Inkrementieren oder Dekrementieren die x und y Werte der Figur, oder 
+	 * treffen eine Auswahl im Menü. Hier wird auch durch den übergebenen Wert 
+	 * festgelegt, um wieviel (vllt. Pixel?) sich die Figur bewegt. */
 	protected void up() {
-		if(m.isStatus()) ;//selektor rauf
-		else g.decFigY(figStep); //y-Achse zeigt nach unten
+
 	}
 	
 	protected void right() {
-		if(m.isStatus()); //selektor rechts
-		else g.incFigX(figStep);
+
 	}
 	
 	protected void down() {
-		if(m.isStatus()); //selektor runter
-		else g.incFigY(figStep);
+
 	}
 	
 	protected void left() {
-		if(m.isStatus()); //selektor links
-		else g.decFigX(figStep);
+
 	}
 	
 	protected void setBomb() {
@@ -52,5 +52,13 @@ public class Logik {
 	
 	protected void toMenu() {
 		
+	}
+	
+	protected void start() {
+		g.init();
+		g.setMenuStatus(true);
+		this.menuStatus = true;
+		
+		g.start();
 	}
 }

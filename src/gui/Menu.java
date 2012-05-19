@@ -4,13 +4,13 @@
 package gui;
 
 /**
- * @author bene
+ * @author Aiko
  *
  */
-public class Menu {
+public class Menu extends Grafik {
 	
 	private boolean status;
-	private Steuerung s;
+	private Eingabe e;
 	
 	protected boolean isStatus() {
 		return status;
@@ -20,7 +20,7 @@ public class Menu {
 		this.status = status;
 	}
 	
-	protected void setSteuerung(Steuerung sInit) {
-		this.s = sInit;
+	protected void setSteuerung(Eingabe eInit) {
+		this.e = eInit;
 	}
 }
