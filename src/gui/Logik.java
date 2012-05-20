@@ -20,7 +20,8 @@ public class Logik {
 	private int bombY;
 	private int bombExplRad;
 	
-	private int figStep = 1; //Schrittweite der Figur
+	//Schrittweite der Figur
+	private int figStep = 1; 
 
 	private boolean gameStatus;
 	
@@ -30,6 +31,10 @@ public class Logik {
 	
 	protected boolean getGameStatus() {
 		return gameStatus;		
+	}
+	
+	protected void setGameStatus(boolean input) {
+		this.gameStatus = input;
 	}
 	
 	/* Die folgenden vier Methoden rufen die Grafik auf und 
@@ -60,6 +65,7 @@ public class Logik {
 		}
 	}
 	
+	/* Setzten der Bombe durch drücken der Leertaste. */
 	protected void setBomb() {
 		if(gameStatus) {
 			g.setBomb();
@@ -70,20 +76,42 @@ public class Logik {
 		
 	}
 	
+	/* Hiermit verlässt man das Spiel wieder und kehrt zum Menü zurück. */
 	protected void toMenu() {
 		if(gameStatus) {
 			g.backToMenu();
 			gameStatus = false;
+			g.initGamePanel();
 		}
 	}
 	
+	//Falls man die Esc-Taste drückt
+	protected void showMenu() {
+		g.backToMenu();
+	}
+	
+	//Falls man nach GameOver zum Menü zurück möchte
+	protected void returnToMenu() {
+		g.initGamePanel();
+		g.backToMenu();
+	}
+	
+	/* Und nun gehts los!!*/
 	protected void start() {
 		g.init();
 		g.start();
 	}
 	
+	/* Start aus dem Menü heraus*/
 	protected void startPressed() {
 		gameStatus = true;
+		g.startGame();
+	}
+	
+	/* Start aus dem GameOver-Screen heraus. */
+	protected void restartPressed() {
+		gameStatus = true;
+		g.initGamePanel();
 		g.startGame();
 	}
 	
@@ -99,6 +127,7 @@ public class Logik {
 		double distance = Math.sqrt((figX-bombX)*(figX-bombX)+(figY-bombY)*(figY-bombY));
 		if(distance < bombExplRad) {
 			g.gameOver();
+			gameStatus = false;
 		}
 	}
 }

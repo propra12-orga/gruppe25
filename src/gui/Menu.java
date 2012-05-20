@@ -9,7 +9,7 @@ import javax.swing.*;
  * @author Aiko
  *
  */
-public class Menu extends Grafik {
+public class Menu {
 	
 	private Logik logic;
 	private JPanel menu;

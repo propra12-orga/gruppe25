@@ -7,12 +7,14 @@ import javax.swing.*;
  * @author Aiko
  *
  */
-public class Grafik {
+public class Grafik extends JPanel {
 	
 	/* Hier sind die logischen Verknüpfungen der wichtigen Klassen*/
-	private Logik l;
+	private Logik logic;
 	private Eingabe e;
 	private Menu m;
+	private GameOver over;
+	private GameWon won;
 	
 	/* Hier kommen die Figur, alle Steine, die Bombe und die Tür rein*/
 	private Figur fig; 
@@ -36,6 +38,10 @@ public class Grafik {
 	private JFrame gameFrame;	
 	private JPanel gamePanel; //Hier wird das eigentliche Spiel angezeigt
 	private Color gameColor;
+	
+	/* Die folgenden beiden Objekte werden für die draw-Methoden benötigt.*/
+	protected Graphics graphics;
+	protected Graphics2D g2 = (Graphics2D) graphics;
 	
 	/* Diese Methoden inkrementieren die x,y Werte der Figur*/
 	protected void incFigX(int i) {
@@ -65,24 +71,24 @@ public class Grafik {
 	}
 	
 	protected int getBombX() {
-		return bomb.getX();
+		return bomb.getXBomb();
 	}
 	
 	protected int getBombY() {
-		return bomb.getX();
+		return bomb.getXBomb();
 	}
 	
 	protected int getExplRad() {
-		return bomb.getExplRad();
+		return bomb.readExplRad();
 	}
 	
 	/* Getter und Setter der Logik-Variable*/
 	protected void setLogik(Logik lInit) {
-		this.l = lInit;
+		this.logic = lInit;
 	}
 	
 	protected Logik getLogik() {
-		return l;
+		return logic;
 	}
 	
 	/* Setter der Eingabe-Variable*/
@@ -90,16 +96,27 @@ public class Grafik {
 		this.e = eInit;
 	}
 	
-	protected void setLevel(int[][] levelIn) {
-		this.level = levelIn;
+	protected void init() {
+		m = new Menu(logic);
+		over = new GameOver(logic);
+		won = new GameWon(logic);
+		
+		m.init();
+		over.init();
+		won.init();
+		
+		initGamePanel(); /* Wegen Übersichtlichkeit ist die initialisierung des Gamepanels in 
+		 				    einer seperaten Methode. Desweiteren kann das Gamepanel dann auch 
+		 				    später erneut (mit anderem Level) initialisiert werden. */
 	}
 	
-	protected void init() {
-		m = new Menu(l); 
+	protected void initGamePanel() {
+		Level mapLevel = new Level();
+		level = mapLevel.getLevel();
 		
 		int n = level[0].length; //Anzahl aller Steine + Tür + Figur
 		obj = new Grafik[n+1]; //Hier kommen alle anzuzeigenden Objekte rein 
-		fig = new Figur(level[0][0], level[1][0]); //Übergabe des x- und y-Wertes der Figur. 
+		fig = new Figur(level[0][0], level[1][0], level[0][n], level[1][n]); //Übergabe des x- und y-Wertes der Figur. 
 		door = new Door(level[0][n], level[1][n]);
 		steine = new Stein[n-2];
 		
@@ -111,14 +128,9 @@ public class Grafik {
 			obj[i] = steine[i-1];
 		}	
 		
-		initGamePanel(); /* Wegen Übersichtlichkeit ist die initialisierung des Gamepanels in 
-		 				    einer seperaten Methode. */
-	}
-	
-	protected void initGamePanel() {
-		gameColor = Color.BLACK;
+		gameColor = Color.BLACK;	//Hintergrundfarbe ist schwarz
 		gamePanel = new JPanel();
-		gamePanel.addKeyListener(e);
+		gamePanel.addKeyListener(e);	//Keylistener Eingabe wird hinzugefügt
 		gamePanel.setBackground(gameColor);
 	}
 	
@@ -133,18 +145,32 @@ public class Grafik {
 	}
 	
 	protected void startGame() {
-		gameFrame.setContentPane(gamePanel);
-		while(l.getGameStatus()) {
+		gameFrame.setContentPane(gamePanel);	//Änderung des Panels zum game-Panel
+		long t = 25; //So lange verzögern bis zum nächsten Bild (in Millisekunden)
+		while(logic.getGameStatus()) {
+			
 			
 			for(int i = 0; i<obj.length; i++) {
 				obj[i].draw();
 			}
 			
+			try {Thread.currentThread().sleep(t); } 
+			catch (InterruptedException e) {
+				System.err.println("Error sleeping!");
+			}
+			
+			g2.setColor(gameColor);
+			g2.drawRect(0, 0, 800, 600);
 		}
 	}
 	
 	protected void gameOver() {
-		
+		gameFrame.setContentPane(over.getPane());
+	}
+	
+	protected void gameWon() {
+		logic.setGameStatus(false);
+		gameFrame.setContentPane(won.getPane());
 	}
 	
 	protected void backToMenu() {
@@ -155,6 +181,10 @@ public class Grafik {
 		bomb.setX(fig.getFigX());
 		bomb.setY(fig.getFigY());
 		bomb.setShow(true);
+	}
+	
+	protected void bombExploded() {
+		logic.checkLife();
 	}
 	
 	protected void draw() {
