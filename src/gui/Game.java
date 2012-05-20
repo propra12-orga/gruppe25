@@ -19,7 +19,6 @@ public class Game {
 		l = new Logik(g);		
 		e = new Eingabe(l);	
 		
-		l.setEingabe(e);
 		g.setEingabe(e);
 		g.setLogik(l);
 		

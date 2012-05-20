@@ -40,4 +40,8 @@ public class Figur extends Grafik{
 	protected int readX() {
 		return x;
 	}
+	
+	protected void draw() {
+		
+	}
 }

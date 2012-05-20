@@ -16,14 +16,14 @@ public class Bombe extends Grafik{
 	private int x;
 	private int y;
 	private int r;
+	private int explRad;
 	private boolean show;
 	private boolean blewUp;
 	//private Triangle[] tri;
 	
-	public Bombe(int x0, int y0, int r0) {
-		this.x = x0;
-		this.y = y0;
-		this.r = r0;
+	public Bombe() {
+		//this.r =
+		//this.explRad = 
 		this.show = false;
 		this.blewUp = false;
 		/*this.tri = new Triangle[];
@@ -45,9 +45,6 @@ public class Bombe extends Grafik{
 		this.y = yIn;
 	}
 	
-	protected void setR(int rIn){
-		this.r = rIn;
-	}
 	
 	protected void setShow(boolean tf) {	
 		this.show = tf;
@@ -63,16 +60,13 @@ public class Bombe extends Grafik{
 		return y;
 	}
 	
-	protected int getR() {
-		return r;
+	protected int getExplRad() {
+		return explRad;
 	}
 	
 	/* Die draw Methode fragt erst ab, ob die Bombe überhaupt
 	 * angezeigt werden darf (über Boolean show)*/
-	protected void draw(int x1, int y1) {
-		this.x = x1;
-		this.y = y1;
-		
+	protected void draw() {
 		if(show) {
 			
 		}	

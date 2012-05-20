@@ -23,4 +23,8 @@ public class Door extends Grafik{
 	protected int getY() {
 		return y;
 	}
+	
+	protected void draw() {
+		
+	}
 }
