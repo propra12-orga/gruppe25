@@ -7,7 +7,7 @@ public class Game {
 	private Eingabe e;
 	private Grafik g;
 	
-	public void main(){
+	public static void main(String[] args){
 		new Game();
 	}
 	

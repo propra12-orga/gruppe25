@@ -4,6 +4,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 
 /**
  * @author Aiko

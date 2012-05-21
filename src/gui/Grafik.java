@@ -1,13 +1,14 @@
 package gui;
 
 import java.awt.*;
+
 import javax.swing.*;
 
 /** /Hier kommt ein Kommentar hin
  * @author Aiko
  *
  */
-public class Grafik extends JPanel {
+public class Grafik{
 	
 	/* Hier sind die logischen Verknüpfungen der wichtigen Klassen*/
 	private Logik logic;
@@ -29,19 +30,17 @@ public class Grafik extends JPanel {
 	 * obj[n-2] -> Tür
 	 * obj[n-1] -> Bombe*/
 	private Grafik[] obj;
+	protected Graphics2D g2;
 	
 	//Die Arraywerte, wo was auf dem Spielfeld liegen soll
-	private int[][] level;	
+	private int[][] level;
+	private Level mapLevel;
 	
 	/* Dies ist die Anzeige, es wird nicht zwischen Frames, sondern 
 	   nur zwischen Panels hin und her geswitcht. */
 	private JFrame gameFrame;	
 	private JPanel gamePanel; //Hier wird das eigentliche Spiel angezeigt
 	private Color gameColor;
-	
-	/* Die folgenden beiden Objekte werden für die draw-Methoden benötigt.*/
-	protected Graphics graphics;
-	protected Graphics2D g2 = (Graphics2D) graphics;
 	
 	/* Diese Methoden inkrementieren die x,y Werte der Figur*/
 	protected void incFigX(int i) {
@@ -111,25 +110,38 @@ public class Grafik extends JPanel {
 	}
 	
 	protected void initGamePanel() {
-		Level mapLevel = new Level();
+		mapLevel = new Level();
 		level = mapLevel.getLevel();
-		
+		//try {
 		int n = level[0].length; //Anzahl aller Steine + Tür + Figur
 		obj = new Grafik[n+1]; //Hier kommen alle anzuzeigenden Objekte rein 
-		fig = new Figur(level[0][0], level[1][0], level[0][n], level[1][n]); //Übergabe des x- und y-Wertes der Figur. 
-		door = new Door(level[0][n], level[1][n]);
+		fig = new Figur(level[0][0], level[1][0], level[0][n-1], level[1][n-1]); //Übergabe des x- und y-Wertes der Figur. 
+		door = new Door(level[0][n-1], level[1][n-1]);
 		steine = new Stein[n-2];
 		
+		
 		obj[0] = fig;
-		obj[n] = door;
-		obj[n+1] = bomb;
-		for(int i=1; i<n; i++) {
+		obj[n-1] = door;
+		obj[n] = bomb;
+		for(int i=1; i<(n-1); i++) {
 			steine[i-1] = new Stein(level[0][i], level[1][i]);
 			obj[i] = steine[i-1];
 		}	
-		
+
 		gameColor = Color.BLACK;	//Hintergrundfarbe ist schwarz
-		gamePanel = new JPanel();
+		gamePanel = new JPanel() {
+
+			@Override
+			protected void paintComponent(Graphics g) {
+				// TODO Auto-generated method stub
+				super.paintComponent(g);
+				g2 = (Graphics2D) g;
+				
+				for(int i = 0; i<obj.length; i++) {
+					obj[i].draw();
+				}
+			}
+		};
 		gamePanel.addKeyListener(e);	//Keylistener Eingabe wird hinzugefügt
 		gamePanel.setBackground(gameColor);
 	}
@@ -149,18 +161,12 @@ public class Grafik extends JPanel {
 		long t = 25; //So lange verzögern bis zum nächsten Bild (in Millisekunden)
 		while(logic.getGameStatus()) {
 			
-			
-			for(int i = 0; i<obj.length; i++) {
-				obj[i].draw();
-			}
-			
 			try {Thread.currentThread().sleep(t); } 
 			catch (InterruptedException e) {
 				System.err.println("Error sleeping!");
 			}
 			
-			g2.setColor(gameColor);
-			g2.drawRect(0, 0, 800, 600);
+			gamePanel.repaint();
 		}
 	}
 	
@@ -171,6 +177,7 @@ public class Grafik extends JPanel {
 	protected void gameWon() {
 		logic.setGameStatus(false);
 		gameFrame.setContentPane(won.getPane());
+		mapLevel.incrementRound();
 	}
 	
 	protected void backToMenu() {

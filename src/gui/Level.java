@@ -16,13 +16,13 @@ package gui;
  */
 public class Level {
 	private static int round = 1;
-	private final int[][][] levelPos = {{{0,0},{1,1},{1,2},{1,2},{1,4},{1,5},{1,6},{1,7},{1,8},{1,9},{1,10}}};
+	private final int[][][] levelPos = {{{0,0},{2,3},{1,10}}};
 	
 	protected int[][] getLevel() {
-		int[][] thisLevel = new int[2][levelPos.length];
-		for(int i = 0; i < levelPos.length; i++){	
+		int[][] thisLevel = new int[2][levelPos[0].length];
+		for(int i = 0; i < levelPos[0].length; i++){	
 			for(int j=0; j<2; j++) {
-				thisLevel[j][i] = levelPos[i][j][round-1];
+				thisLevel[j][i] = levelPos[round-1][i][j];
 			}
 		}
 		return thisLevel;
